@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using test_sharp.Pages.ModalWindows;
 
 namespace test_sharp.Pages
 {
@@ -29,11 +30,13 @@ namespace test_sharp.Pages
 
         private void personalDetailsButtonClick(object sender, RoutedEventArgs e)
         {
-
+            PersonalDetailsWindow personalDetailsWindow = new PersonalDetailsWindow();
+            personalDetailsWindow.ShowDialog();
         }
         private void documentDetailsButtonClick(object sender, RoutedEventArgs e)
         {
-
+            DocumentDetailsWindow documentDetailsWindow = new DocumentDetailsWindow();
+            documentDetailsWindow.ShowDialog();
         }
         private void clearAllButtonClick(object sender, RoutedEventArgs e)
         {

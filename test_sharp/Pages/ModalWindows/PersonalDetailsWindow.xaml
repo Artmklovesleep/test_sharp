@@ -7,6 +7,42 @@
         mc:Ignorable="d"
         Title="PersonalDetailsWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="СНИЛС" Grid.Row="0" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="snilsTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="12"/>
+
+            <TextBlock Text="Адрес" Grid.Row="1" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="adressTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="100"/>
+
+            <!-- Серия документа -->
+            <TextBlock Text="ИНН" Grid.Row="2" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="innTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="10"/>
+
+            <!-- Номер документа -->
+            <TextBlock Text="ОГРНИП" Grid.Row="3" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="ogrnipTextBox" Grid.Row="3" Grid.Column="1" Margin="5" Width="200" MaxLength="10"/>
+        </Grid>
+
+        <!-- Кнопки в нижнем правом углу -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="10">
+            <Button x:Name="cancelButton" Content="Отменить" Margin="5" Click="cancelButtonClick" Width="100"/>
+            <Button x:Name="saveButton" Content="Сохранить" Margin="5" Click="saveButtonClick" Width="100"/>
+        </StackPanel>
     </Grid>
 </Window>

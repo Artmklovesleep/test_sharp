@@ -15,15 +15,15 @@ using System.Windows.Shapes;
 namespace test_sharp.Pages.ModalWindows
 {
     /// <summary>
-    /// Логика взаимодействия для PersonalDetailsWindow.xaml
+    /// Логика взаимодействия для DocumentDetailsWindow.xaml
     /// </summary>
-    public partial class PersonalDetailsWindow : Window
+    public partial class DocumentDetailsWindow : Window
     {
-        public PersonalDetailsWindow()
+        public DocumentDetailsWindow()
         {
             InitializeComponent();
         }
-
+    
         private void cancelButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
