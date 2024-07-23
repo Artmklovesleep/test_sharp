@@ -29,25 +29,25 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Код документа" Grid.Row="0" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="codeDocumentTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="12" Text="{Binding CodeDocument, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="codeDocumentTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="12" Text="{Binding DocumentDetails.CodeDocument, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Наименование документа" Grid.Row="1" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="nameDocumentTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="100" Text="{Binding NameDocument, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="nameDocumentTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="100" Text="{Binding DocumentDetails.NameDocument, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Серия документа" Grid.Row="2" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="seriesDocumentTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Text="{Binding SeriesDocument, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="seriesDocumentTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Text="{Binding DocumentDetails.SeriesDocument, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Номер документа" Grid.Row="3" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="numberDocumentTextBox" Grid.Row="3" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Text="{Binding NumberDocument, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="numberDocumentTextBox" Grid.Row="3" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Text="{Binding DocumentDetails.NumberDocument, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Дата выдачи" Grid.Row="4" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="issuanceDateTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Width="200" Text="{Binding IssuanceDate, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="issuanceDateTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Width="200" Text="{Binding DocumentDetails.IssuanceDate, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Организация выдавшая документ" Grid.Row="5" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="issuingOrganizationTextBox" Grid.Row="5" Grid.Column="1" Margin="5" Width="200" Text="{Binding IssuingOrganization, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="issuingOrganizationTextBox" Grid.Row="5" Grid.Column="1" Margin="5" Width="200" Text="{Binding DocumentDetails.IssuingOrganization, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Автор документа" Grid.Row="6" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="documentAuthorTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Width="200" Text="{Binding DocumentAuthor, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="documentAuthorTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Width="200" Text="{Binding DocumentDetails.DocumentAuthor, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="10">

@@ -29,7 +29,6 @@ namespace test_sharp
             OpenPage(PageType.START);
         }
 
-        //tst
 
         public void OpenPage(PageType pageType)
         {

@@ -20,12 +20,11 @@ namespace test_sharp.Pages.ModalWindows
     /// </summary>
     public partial class DocumentDetailsWindow : Window
     {
-        private Document document;
-        public DocumentDetailsWindow()
+        private Person person;
+        public DocumentDetailsWindow(Person person)
         {
             InitializeComponent();
-            document = new Document();
-            this.DataContext = document;
+            this.DataContext = person;
 
         }
     
@@ -36,7 +35,7 @@ namespace test_sharp.Pages.ModalWindows
 
         private void saveButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Пользователь {document.DocumentAuthor}");
+            MessageBox.Show($"Пользователь {person.DocumentDetails.DocumentAuthor}");
         }
     }
 }

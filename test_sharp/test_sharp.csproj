@@ -102,9 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\BaseViewModel.cs" />
-    <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\PersonalDetail.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

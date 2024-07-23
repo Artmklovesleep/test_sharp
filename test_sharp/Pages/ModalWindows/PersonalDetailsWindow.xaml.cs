@@ -21,12 +21,11 @@ namespace test_sharp.Pages.ModalWindows
     /// </summary>
     public partial class PersonalDetailsWindow : Window
     {
-        private PersonalDetail personalDetail;
-        public PersonalDetailsWindow()
+        private Person person;
+        public PersonalDetailsWindow(Person person)
         {
             InitializeComponent();
-            personalDetail = new PersonalDetail();
-            this.DataContext = personalDetail;
+            this.DataContext = person;
         }
 
         private void cancelButtonClick(object sender, RoutedEventArgs e)
@@ -36,7 +35,7 @@ namespace test_sharp.Pages.ModalWindows
 
         private void saveButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Пользователь {personalDetail.inn}");
+            
         }
     }
 }

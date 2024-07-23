@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using test_sharp.Pages.ModalWindows;
 using test_sharp.Models;
+using Microsoft.Win32;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace test_sharp.Pages
 {
@@ -34,12 +37,12 @@ namespace test_sharp.Pages
 
         private void personalDetailsButtonClick(object sender, RoutedEventArgs e)
         {
-            PersonalDetailsWindow personalDetailsWindow = new PersonalDetailsWindow();
+            PersonalDetailsWindow personalDetailsWindow = new PersonalDetailsWindow(person);
             personalDetailsWindow.ShowDialog();
         }
         private void documentDetailsButtonClick(object sender, RoutedEventArgs e)
         {
-            DocumentDetailsWindow documentDetailsWindow = new DocumentDetailsWindow();
+            DocumentDetailsWindow documentDetailsWindow = new DocumentDetailsWindow(person);
             documentDetailsWindow.ShowDialog();
         }
         private void clearAllButtonClick(object sender, RoutedEventArgs e)
@@ -50,9 +53,30 @@ namespace test_sharp.Pages
         }
         private void saveToXmlButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Пользователь {person.LastName}");
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "XML Files (*.xml)|*.xml",
+                DefaultExt = "xml",
+                Title = "Save XML File"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+
+                string filePath = saveFileDialog.FileName;
+
+
+                var serializer = new XmlSerializer(typeof(Person));
+                using (var writer = new StreamWriter(filePath))
+                {
+                    serializer.Serialize(writer, person);
+                }
+
+                // Optionally, show a confirmation message
+                MessageBox.Show("XML file saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+
         }
-
-
     }
 }
