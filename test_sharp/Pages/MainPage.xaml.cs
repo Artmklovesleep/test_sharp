@@ -55,35 +55,59 @@ namespace test_sharp.Pages
         }
         private void clearAllButtonClick(object sender, RoutedEventArgs e)
         {
-            lastNameTextBox.Clear();
-            firstNameTextBox.Clear();
-            middleNameTextBox.Clear();
+            person.Clear();
         }
         private void saveToXmlButtonClick(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            List<string> invalidFields = GetInvalidFields();
+            var er = Validation.GetErrors(middleNameTextBox);
+            if (er.Count>0)
             {
-                Filter = "XML Files (*.xml)|*.xml",
-                DefaultExt = "xml",
-                Title = "Сохранить XML файл"
-            };
-
-            if (saveFileDialog.ShowDialog() == true)
+                MessageBox.Show("Есть ошибки в следующих полях");
+            }
+            else
             {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                        {
+                            Filter = "XML Files (*.xml)|*.xml",
+                            DefaultExt = "xml",
+                            Title = "Сохранить XML файл"
+                        };
 
-                string filePath = saveFileDialog.FileName;
-
-
-                var serializer = new XmlSerializer(typeof(Person));
-                using (var writer = new StreamWriter(filePath))
+                if (saveFileDialog.ShowDialog() == true)
                 {
-                    serializer.Serialize(writer, person);
-                }
 
-                MessageBox.Show("Файл сохранен успешно", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string filePath = saveFileDialog.FileName;
+
+
+                    var serializer = new XmlSerializer(typeof(Person));
+                    using (var writer = new StreamWriter(filePath))
+                    {
+                        var personToSerialize = new Person
+                        {
+                            LastName = person.LastName,
+                            FirstName = person.FirstName,
+                            MiddleName = person.MiddleName,
+                            PersonalInfo = person.PersonalInfo.ShouldSerialize() ? person.PersonalInfo : null,
+                            DocumentDetails = person.DocumentDetails.ShouldSerialize() ? person.DocumentDetails : null
+                        };
+
+                        serializer.Serialize(writer, personToSerialize);
+                    }
+
+                    MessageBox.Show("Файл сохранен успешно", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
 
+        }
+        private List<string> GetInvalidFields()
+        {
+            List<string> invalidFields = new List<string>();
 
+            var er = Validation.GetErrors(middleNameTextBox);
+
+
+            return invalidFields;
         }
     }
 }

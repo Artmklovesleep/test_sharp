@@ -22,14 +22,16 @@ namespace test_sharp.Pages.ModalWindows
     public partial class PersonalDetailsWindow : Window
     {
         private Person person;
-        public PersonalDetailsWindow(Person person)
+        public PersonalDetailsWindow(Person _person)
         {
             InitializeComponent();
+            person = _person;
             this.DataContext = person;
         }
 
         private void cancelButtonClick(object sender, RoutedEventArgs e)
         {
+            person.PersonalInfo.Clear();
             this.Close();
         }
 

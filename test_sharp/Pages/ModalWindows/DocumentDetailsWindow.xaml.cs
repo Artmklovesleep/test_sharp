@@ -21,15 +21,17 @@ namespace test_sharp.Pages.ModalWindows
     public partial class DocumentDetailsWindow : Window
     {
         private Person person;
-        public DocumentDetailsWindow(Person person)
+        public DocumentDetailsWindow(Person _person)
         {
             InitializeComponent();
+            person = _person;
             this.DataContext = person;
 
         }
     
         private void cancelButtonClick(object sender, RoutedEventArgs e)
         {
+            person.DocumentDetails.Clear();
             this.Close();
         }
 

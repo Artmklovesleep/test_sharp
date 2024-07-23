@@ -86,6 +86,14 @@ namespace test_sharp.Models
             PersonalInfo = new PersonalInformation();
             DocumentDetails = new DetailsOfDocument();
         }
+        public void Clear()
+        {
+            LastName = string.Empty;
+            FirstName = string.Empty;
+            MiddleName = string.Empty;
+            PersonalInfo.Clear();
+            DocumentDetails.Clear();
+        }
     }
 
     public class PersonalInformation : BaseViewModel
@@ -148,6 +156,21 @@ namespace test_sharp.Models
                     OnPropertyChanged(nameof(Ogrnip));
                 }
             }
+        }
+        public void Clear()
+        {
+            Snils = string.Empty;
+            Adress = string.Empty;
+            Inn = string.Empty;
+            Ogrnip = string.Empty;
+        }
+
+        public bool ShouldSerialize()
+        {
+            return !string.IsNullOrEmpty(Snils) &
+                   !string.IsNullOrEmpty(Adress) &
+                   !string.IsNullOrEmpty(Inn) &
+                   !string.IsNullOrEmpty(Ogrnip);
         }
     }
 
@@ -242,6 +265,24 @@ namespace test_sharp.Models
                     OnPropertyChanged(nameof(DocumentAuthor));
                 }
             }
+        }
+        public void Clear()
+        {
+            CodeDocument = string.Empty;
+            NameDocument = string.Empty;
+            SeriesDocument = string.Empty;
+            NumberDocument = string.Empty;  
+            IssuanceDate = string.Empty;
+            DocumentAuthor = string.Empty;
+        }
+        public bool ShouldSerialize()
+        {
+            return !string.IsNullOrEmpty(CodeDocument) &
+                   !string.IsNullOrEmpty(NameDocument) &
+                   !string.IsNullOrEmpty(SeriesDocument) &
+                   !string.IsNullOrEmpty(NumberDocument) &
+                   !string.IsNullOrEmpty(IssuanceDate) &
+                   !string.IsNullOrEmpty(DocumentAuthor);
         }
     }
 }
