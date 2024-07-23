@@ -65,7 +65,7 @@ namespace test_sharp.Pages
             {
                 Filter = "XML Files (*.xml)|*.xml",
                 DefaultExt = "xml",
-                Title = "Save XML File"
+                Title = "Сохранить XML файл"
             };
 
             if (saveFileDialog.ShowDialog() == true)
@@ -80,8 +80,7 @@ namespace test_sharp.Pages
                     serializer.Serialize(writer, person);
                 }
 
-                // Optionally, show a confirmation message
-                MessageBox.Show("XML file saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Файл сохранен успешно", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
 
