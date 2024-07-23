@@ -3,9 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:test_sharp.Pages.ModalWindows"
+        xmlns:local="clr-namespace:test_sharp"
         mc:Ignorable="d"
         Title="DocumentDetailsWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="ValidatedTextBoxStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+                <Trigger Property="Validation.HasError" Value="false">
+                    <Setter Property="ToolTip" Value=""/>
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -21,7 +40,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -29,25 +47,57 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Код документа" Grid.Row="0" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="codeDocumentTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="12" Text="{Binding DocumentDetails.CodeDocument, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="codeDocumentTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="20" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="DocumentDetails.CodeDocument" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^\d{12}$" ErrorMessage="Код документа 12 чисел" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock Text="Наименование документа" Grid.Row="1" Grid.Column="0" Margin="5"/>
             <TextBox x:Name="nameDocumentTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="100" Text="{Binding DocumentDetails.NameDocument, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Серия документа" Grid.Row="2" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="seriesDocumentTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Text="{Binding DocumentDetails.SeriesDocument, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="seriesDocumentTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="DocumentDetails.SeriesDocument" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^\S{10}$" ErrorMessage="10 символов без пробелов" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock Text="Номер документа" Grid.Row="3" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="numberDocumentTextBox" Grid.Row="3" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Text="{Binding DocumentDetails.NumberDocument, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="numberDocumentTextBox" Grid.Row="3" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="DocumentDetails.NumberDocument" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^\S{10}$" ErrorMessage="10 символов без пробелов" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock Text="Дата выдачи" Grid.Row="4" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="issuanceDateTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Width="200" Text="{Binding DocumentDetails.IssuanceDate, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="issuanceDateTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Width="200" MaxLength="20" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="DocumentDetails.IssuanceDate" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(19|20)\d{2}$" ErrorMessage="формат даты ДД.ММ.ГГГГ " />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
-            <TextBlock Text="Организация выдавшая документ" Grid.Row="5" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="issuingOrganizationTextBox" Grid.Row="5" Grid.Column="1" Margin="5" Width="200" Text="{Binding DocumentDetails.IssuingOrganization, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <TextBlock Text="Автор документа" Grid.Row="6" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="documentAuthorTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Width="200" Text="{Binding DocumentDetails.DocumentAuthor, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="5">
+                    Организация выдавшая документ.<LineBreak/>
+                    Автор документа
+            </TextBlock>
+            <TextBox x:Name="documentAuthorTextBox" Grid.Row="5" Grid.Column="1" Margin="5,10,5,16" Width="200" MaxLength="50" Text="{Binding DocumentDetails.DocumentAuthor, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="10">

@@ -3,10 +3,29 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:test_sharp.Pages"
+      xmlns:local="clr-namespace:test_sharp"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainPage">
+
+    <Page.Resources>
+        <Style x:Key="ValidatedTextBoxStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+                <Trigger Property="Validation.HasError" Value="false">
+                    <Setter Property="ToolTip" Value=""/>
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,17 +46,38 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Фамилия" Grid.Row="0" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="lastNameTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="20"
-                 Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="lastNameTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="20" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="LastName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^(?:[a-zA-Z]{1,20}|[а-яА-Я]{1,20})$" ErrorMessage="Only letters are allowed." />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock Text="Имя" Grid.Row="1" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="firstNameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="20"
-                Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="firstNameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="20" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="FirstName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^(?:[a-zA-Z]{1,20}|[а-яА-Я]{1,20})$" ErrorMessage="Only letters are allowed." />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock Text="Отчество" Grid.Row="2" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="middleNameTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="20"
-                Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
-
+            <TextBox x:Name="middleNameTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="20" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="MiddleName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^(?:[a-zA-Z]{1,20}|[а-яА-Я]{1,20})$" ErrorMessage="Only letters are allowed." />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            
             <Button x:Name="personalDetailsButton" Content="Персональные сведения" Grid.Row="3" Grid.Column="0" Margin="5" Click="personalDetailsButtonClick" Width="150"/>
             <Button x:Name="documentDetailsButton" Content="Реквизиты документа" Grid.Row="3" Grid.Column="1" Margin="5" Click="documentDetailsButtonClick" Width="150"/>
         </Grid>

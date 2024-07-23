@@ -153,9 +153,9 @@ namespace test_sharp.Models
 
     public class DetailsOfDocument : BaseViewModel
     {
-        private int _codeDocument;
+        private string _codeDocument;
         [XmlElement("CodeDocument")]
-        public int CodeDocument
+        public string CodeDocument
         {
             get => _codeDocument;
             set
@@ -213,9 +213,9 @@ namespace test_sharp.Models
             }
         }
 
-        private DateTime _issuanceDate;
+        private string _issuanceDate;
         [XmlElement("IssuanceDate")]
-        public DateTime IssuanceDate
+        public string IssuanceDate
         {
             get => _issuanceDate;
             set
@@ -228,20 +228,6 @@ namespace test_sharp.Models
             }
         }
 
-        private string _issuingOrganization;
-        [XmlElement("IssuingOrganization")]
-        public string IssuingOrganization
-        {
-            get => _issuingOrganization;
-            set
-            {
-                if (_issuingOrganization != value)
-                {
-                    _issuingOrganization = value;
-                    OnPropertyChanged(nameof(IssuingOrganization));
-                }
-            }
-        }
 
         private string _documentAuthor;
         [XmlElement("DocumentAuthor")]

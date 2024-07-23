@@ -3,9 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:test_sharp.Pages.ModalWindows"
+        xmlns:local="clr-namespace:test_sharp"
         mc:Ignorable="d"
         Title="PersonalDetailsWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="ValidatedTextBoxStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+                <Trigger Property="Validation.HasError" Value="false">
+                    <Setter Property="ToolTip" Value=""/>
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -25,16 +45,33 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="СНИЛС" Grid.Row="0" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="snilsTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="12" Text="{Binding PersonalInfo.Snils, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="snilsTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="20" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="PersonalInfo.Snils" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^\d{3}-\d{3}-\d{3} \d{2}$" ErrorMessage="Введите в формате СНИЛС" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock Text="Адрес" Grid.Row="1" Grid.Column="0" Margin="5"/>
             <TextBox x:Name="adressTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="100" Text="{Binding PersonalInfo.Adress, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="ИНН" Grid.Row="2" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="innTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Text="{Binding PersonalInfo.Inn, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="innTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="15" Style="{StaticResource ValidatedTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="PersonalInfo.Inn" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^(?:[a-zA-Z]{1,15}|[а-яА-Я]{1,15})$" ErrorMessage="Буквы" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
 
             <TextBlock Text="ОГРНИП" Grid.Row="3" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="ogrnipTextBox" Grid.Row="3" Grid.Column="1" Margin="5" Width="200" MaxLength="10" Text="{Binding PersonalInfo.Ogrnip, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="ogrnipTextBox" Grid.Row="3" Grid.Column="1" Margin="5" Width="200" MaxLength="15" Text="{Binding PersonalInfo.Ogrnip, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="10">
