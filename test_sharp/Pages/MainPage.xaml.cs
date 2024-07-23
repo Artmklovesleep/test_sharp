@@ -35,6 +35,14 @@ namespace test_sharp.Pages
             this.DataContext = person;
         }
 
+        public MainPage(MainWindow _mainWindow, Person _person)
+        {
+            InitializeComponent();
+            mainWindow = _mainWindow;
+            person = _person;
+            this.DataContext = person;
+        }
+
         private void personalDetailsButtonClick(object sender, RoutedEventArgs e)
         {
             PersonalDetailsWindow personalDetailsWindow = new PersonalDetailsWindow(person);

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using test_sharp.Enums;
+using test_sharp.Models;
 using test_sharp.Pages;
 
 namespace test_sharp
@@ -39,6 +40,21 @@ namespace test_sharp
                     break;
                 case PageType.MAIN:
                     mainFrame.Navigate(new MainPage(this));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(pageType), pageType, null);
+            }
+        }
+
+        public void OpenPage(PageType pageType, Person person)
+        {
+            switch (pageType)
+            {
+                case PageType.START:
+                    mainFrame.Navigate(new StartPage(this));
+                    break;
+                case PageType.MAIN:
+                    mainFrame.Navigate(new MainPage(this, person));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(pageType), pageType, null);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 using test_sharp.Enums;
+using test_sharp.Models;
 
 namespace test_sharp.Pages
 {
@@ -22,7 +25,7 @@ namespace test_sharp.Pages
     /// </summary>
     public partial class StartPage : Page
     {
-       
+        private Person person;
         public MainWindow mainWindow;
         public StartPage(MainWindow _mainWindow)
         {
@@ -44,9 +47,14 @@ namespace test_sharp.Pages
 
             if (result == true)
             {
-                // The user selected a file and pressed OK
                 string selectedFileName = openFileDialog.FileName;
-                MessageBox.Show("Selected file: " + selectedFileName);
+
+                var serializer = new XmlSerializer(typeof(Person));
+                using (var writer = new FileStream(selectedFileName, FileMode.OpenOrCreate))
+                {
+                    person = (Person)serializer.Deserialize(writer);
+                }
+                mainWindow.OpenPage(PageType.MAIN, person);
             }
         }
     }
