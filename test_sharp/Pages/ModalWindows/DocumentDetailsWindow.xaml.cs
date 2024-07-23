@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using test_sharp.Models;
 
 namespace test_sharp.Pages.ModalWindows
 {
@@ -19,9 +20,13 @@ namespace test_sharp.Pages.ModalWindows
     /// </summary>
     public partial class DocumentDetailsWindow : Window
     {
+        private Document document;
         public DocumentDetailsWindow()
         {
             InitializeComponent();
+            document = new Document();
+            this.DataContext = document;
+
         }
     
         private void cancelButtonClick(object sender, RoutedEventArgs e)
@@ -31,7 +36,7 @@ namespace test_sharp.Pages.ModalWindows
 
         private void saveButtonClick(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show($"Пользователь {document.DocumentAuthor}");
         }
     }
 }

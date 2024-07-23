@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using test_sharp.Models;
 
 namespace test_sharp.Pages.ModalWindows
 {
@@ -19,9 +21,12 @@ namespace test_sharp.Pages.ModalWindows
     /// </summary>
     public partial class PersonalDetailsWindow : Window
     {
+        private PersonalDetail personalDetail;
         public PersonalDetailsWindow()
         {
             InitializeComponent();
+            personalDetail = new PersonalDetail();
+            this.DataContext = personalDetail;
         }
 
         private void cancelButtonClick(object sender, RoutedEventArgs e)
@@ -31,7 +36,7 @@ namespace test_sharp.Pages.ModalWindows
 
         private void saveButtonClick(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show($"Пользователь {personalDetail.inn}");
         }
     }
 }

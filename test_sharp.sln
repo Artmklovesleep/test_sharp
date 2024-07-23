@@ -5,6 +5,11 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_sharp", "test_sharp\test_sharp.csproj", "{A2C00500-434D-4C59-9044-0C1F85D37759}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{F851EF1E-A756-4D50-B7AC-405918530234}"
+	ProjectSection(SolutionItems) = preProject
+		RegularExpressionValidationRule.cs = RegularExpressionValidationRule.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

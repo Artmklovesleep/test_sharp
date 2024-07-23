@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using test_sharp.Pages.ModalWindows;
+using test_sharp.Models;
 
 namespace test_sharp.Pages
 {
@@ -22,10 +23,13 @@ namespace test_sharp.Pages
     public partial class MainPage : Page
     {
         public MainWindow mainWindow;
+        private Person person;
         public MainPage(MainWindow _mainWindow)
         {
             InitializeComponent();
             mainWindow = _mainWindow;
+            person = new Person();
+            this.DataContext = person;
         }
 
         private void personalDetailsButtonClick(object sender, RoutedEventArgs e)
@@ -40,11 +44,13 @@ namespace test_sharp.Pages
         }
         private void clearAllButtonClick(object sender, RoutedEventArgs e)
         {
-
+            lastNameTextBox.Clear();
+            firstNameTextBox.Clear();
+            middleNameTextBox.Clear();
         }
         private void saveToXmlButtonClick(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show($"Пользователь {person.LastName}");
         }
 
 

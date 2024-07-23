@@ -27,13 +27,16 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Фамилия" Grid.Row="0" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="lastNameTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200"/>
+            <TextBox x:Name="lastNameTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="20"
+                 Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Имя" Grid.Row="1" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="firstNameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200"/>
+            <TextBox x:Name="firstNameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="20"
+                Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Отчество" Grid.Row="2" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="middleNameTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200"/>
+            <TextBox x:Name="middleNameTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Width="200" MaxLength="20"
+                Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button x:Name="personalDetailsButton" Content="Персональные сведения" Grid.Row="3" Grid.Column="0" Margin="5" Click="personalDetailsButtonClick" Width="150"/>
             <Button x:Name="documentDetailsButton" Content="Реквизиты документа" Grid.Row="3" Grid.Column="1" Margin="5" Click="documentDetailsButtonClick" Width="150"/>
