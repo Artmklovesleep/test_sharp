@@ -27,6 +27,9 @@ namespace test_sharp.Pages
     {
         public MainWindow mainWindow;
         private Person person;
+        private DocumentDetailsWindow _documentDetailsWindow;
+        private PersonalDetailsWindow _personalDetailsWindow;
+
         public MainPage(MainWindow _mainWindow)
         {
             InitializeComponent();
@@ -46,11 +49,13 @@ namespace test_sharp.Pages
         private void personalDetailsButtonClick(object sender, RoutedEventArgs e)
         {
             PersonalDetailsWindow personalDetailsWindow = new PersonalDetailsWindow(person);
+            _personalDetailsWindow = personalDetailsWindow;
             personalDetailsWindow.ShowDialog();
         }
         private void documentDetailsButtonClick(object sender, RoutedEventArgs e)
         {
             DocumentDetailsWindow documentDetailsWindow = new DocumentDetailsWindow(person);
+            _documentDetailsWindow = documentDetailsWindow;
             documentDetailsWindow.ShowDialog();
         }
         private void clearAllButtonClick(object sender, RoutedEventArgs e)
@@ -60,11 +65,13 @@ namespace test_sharp.Pages
         private void saveToXmlButtonClick(object sender, RoutedEventArgs e)
         {
             List<string> invalidFields = GetInvalidFields();
-            var er = Validation.GetErrors(middleNameTextBox);
-            if (er.Count>0)
+            if (invalidFields.Count > 0)
             {
-                MessageBox.Show("Есть ошибки в следующих полях");
+                string errorMessage = "Есть ошибки в следующих полях:\n";
+                errorMessage += string.Join("\n", invalidFields);
+                MessageBox.Show(errorMessage);
             }
+         
             else
             {
                     SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -100,12 +107,21 @@ namespace test_sharp.Pages
             }
 
         }
+
         private List<string> GetInvalidFields()
         {
             List<string> invalidFields = new List<string>();
-
-            var er = Validation.GetErrors(middleNameTextBox);
-
+            if ((Validation.GetHasError(firstNameTextBox))|| (string.IsNullOrEmpty(person.FirstName))) invalidFields.Add("Имя");
+            if ((Validation.GetHasError(lastNameTextBox)) || (string.IsNullOrEmpty(person.LastName))) invalidFields.Add("Фамилия");
+            if ((Validation.GetHasError(middleNameTextBox)) || (string.IsNullOrEmpty(person.MiddleName))) invalidFields.Add("Отчество");
+            if (person.PersonalInfo.ShouldSerialize())
+            {
+                if (person.PersonalInfo.HasErrors) invalidFields.Add("Ошибки в окне Персональной информации");
+            }
+            if (person.DocumentDetails.ShouldSerialize())
+            {
+                if (person.DocumentDetails.HasErrors) invalidFields.Add("Ошибки в окне Информации о документе");
+            }
 
             return invalidFields;
         }

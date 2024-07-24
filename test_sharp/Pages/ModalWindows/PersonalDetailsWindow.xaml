@@ -49,7 +49,7 @@
                 <TextBox.Text>
                     <Binding Path="PersonalInfo.Snils" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <local:RegexValidationRule RegexPattern="^\d{3}-\d{3}-\d{3} \d{2}$" ErrorMessage="Введите в формате СНИЛС" />
+                            <local:RegexValidationRule RegexPattern="^\d{3}-\d{3}-\d{3} \d{2}$" ErrorMessage="Введите в формате СНИЛС XXX-XXX-XXX XX" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

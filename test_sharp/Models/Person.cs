@@ -157,6 +157,8 @@ namespace test_sharp.Models
                 }
             }
         }
+        [XmlIgnore]
+        public bool HasErrors { get; set; }
         public void Clear()
         {
             Snils = string.Empty;
@@ -266,6 +268,9 @@ namespace test_sharp.Models
                 }
             }
         }
+
+        [XmlIgnore]
+        public bool HasErrors { get; set; }
         public void Clear()
         {
             CodeDocument = string.Empty;
@@ -284,5 +289,6 @@ namespace test_sharp.Models
                    !string.IsNullOrEmpty(IssuanceDate) &
                    !string.IsNullOrEmpty(DocumentAuthor);
         }
+
     }
 }
