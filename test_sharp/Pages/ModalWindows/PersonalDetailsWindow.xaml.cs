@@ -29,7 +29,7 @@ namespace test_sharp.Pages.ModalWindows
             this.DataContext = person;
         }
 
-        private void cancelButtonClick(object sender, RoutedEventArgs e)
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             List<string> invalidFields = CheckErrors();
             if (invalidFields.Count > 0)
@@ -44,7 +44,7 @@ namespace test_sharp.Pages.ModalWindows
             }
         }
 
-        private void saveButtonClick(object sender, RoutedEventArgs e)
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             List<string> invalidFields = CheckErrors();
             if (invalidFields.Count > 0)

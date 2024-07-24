@@ -46,23 +46,23 @@ namespace test_sharp.Pages
             this.DataContext = person;
         }
 
-        private void personalDetailsButtonClick(object sender, RoutedEventArgs e)
+        private void PersonalDetailsButtonClick(object sender, RoutedEventArgs e)
         {
             PersonalDetailsWindow personalDetailsWindow = new PersonalDetailsWindow(person);
             _personalDetailsWindow = personalDetailsWindow;
             personalDetailsWindow.ShowDialog();
         }
-        private void documentDetailsButtonClick(object sender, RoutedEventArgs e)
+        private void DocumentDetailsButtonClick(object sender, RoutedEventArgs e)
         {
             DocumentDetailsWindow documentDetailsWindow = new DocumentDetailsWindow(person);
             _documentDetailsWindow = documentDetailsWindow;
             documentDetailsWindow.ShowDialog();
         }
-        private void clearAllButtonClick(object sender, RoutedEventArgs e)
+        private void ClearAllButtonClick(object sender, RoutedEventArgs e)
         {
             person.Clear();
         }
-        private void saveToXmlButtonClick(object sender, RoutedEventArgs e)
+        private void SaveToXmlButtonClick(object sender, RoutedEventArgs e)
         {
             List<string> invalidFields = GetInvalidFields();
             if (invalidFields.Count > 0)

@@ -17,7 +17,6 @@
                     <Setter Property="BorderThickness" Value="1"/>
                 </Trigger>
                 <Trigger Property="Validation.HasError" Value="false">
-                    <Setter Property="ToolTip" Value=""/>
                     <Setter Property="BorderBrush" Value="Gray"/>
                     <Setter Property="BorderThickness" Value="1"/>
                 </Trigger>
@@ -101,8 +100,8 @@
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="10">
-            <Button x:Name="cancelButton" Content="Отменить" Margin="5" Click="cancelButtonClick" Width="100"/>
-            <Button x:Name="saveButton" Content="Сохранить" Margin="5" Click="saveButtonClick" Width="100"/>
+            <Button x:Name="cancelButton" Content="Отменить" Margin="5" Click="CancelButtonClick" Width="100"/>
+            <Button x:Name="saveButton" Content="Сохранить" Margin="5" Click="SaveButtonClick" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

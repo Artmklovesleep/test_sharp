@@ -19,7 +19,6 @@
                     <Setter Property="BorderThickness" Value="1"/>
                 </Trigger>
                 <Trigger Property="Validation.HasError" Value="false">
-                    <Setter Property="ToolTip" Value=""/>
                     <Setter Property="BorderBrush" Value="Gray"/>
                     <Setter Property="BorderThickness" Value="1"/>
                 </Trigger>
@@ -78,13 +77,13 @@
                 </TextBox.Text>
             </TextBox>
             
-            <Button x:Name="personalDetailsButton" Content="Персональные сведения" Grid.Row="3" Grid.Column="0" Margin="5" Click="personalDetailsButtonClick" Width="150"/>
-            <Button x:Name="documentDetailsButton" Content="Реквизиты документа" Grid.Row="3" Grid.Column="1" Margin="5" Click="documentDetailsButtonClick" Width="150"/>
+            <Button x:Name="personalDetailsButton" Content="Персональные сведения" Grid.Row="3" Grid.Column="0" Margin="5" Click="PersonalDetailsButtonClick" Width="150"/>
+            <Button x:Name="documentDetailsButton" Content="Реквизиты документа" Grid.Row="3" Grid.Column="1" Margin="5" Click="DocumentDetailsButtonClick" Width="150"/>
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="10">
-            <Button x:Name="clearAllButton" Content="Стереть все" Margin="5" Click="clearAllButtonClick" Width="150"/>
-            <Button x:Name="saveToXmlButton" Content="Сохранить в XML" Margin="5" Click="saveToXmlButtonClick" Width="150"/>
+            <Button x:Name="clearAllButton" Content="Стереть все" Margin="5" Click="ClearAllButtonClick" Width="150"/>
+            <Button x:Name="saveToXmlButton" Content="Сохранить в XML" Margin="5" Click="SaveToXmlButtonClick" Width="150"/>
         </StackPanel>
     </Grid>
 </Page>
