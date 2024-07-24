@@ -49,12 +49,20 @@ namespace test_sharp.Pages
             {
                 string selectedFileName = openFileDialog.FileName;
 
-                var serializer = new XmlSerializer(typeof(Person));
-                using (var writer = new FileStream(selectedFileName, FileMode.OpenOrCreate))
+                try
                 {
-                    person = (Person)serializer.Deserialize(writer);
+                    var serializer = new XmlSerializer(typeof(Person));
+                    using (var writer = new FileStream(selectedFileName, FileMode.OpenOrCreate))
+                    {
+                        person = (Person)serializer.Deserialize(writer);
+                    }
+                    mainWindow.OpenPage(PageType.MAIN, person);
                 }
-                mainWindow.OpenPage(PageType.MAIN, person);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при открытии XML");
+                }
+                
             }
         }
     }
