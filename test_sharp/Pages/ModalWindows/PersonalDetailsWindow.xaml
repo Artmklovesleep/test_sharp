@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:test_sharp"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="PersonalDetailsWindow" Height="450" Width="800">
 
@@ -44,7 +45,23 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="СНИЛС" Grid.Row="0" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="snilsTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="20" Style="{StaticResource ValidatedTextBoxStyle}">
+            <xctk:MaskedTextBox x:Name="snilsTextBox"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="5"
+                    Width="200"
+                    Mask="000-000-000 00"
+                    PromptChar="_"
+                    Style="{StaticResource ValidatedTextBoxStyle}">
+                <xctk:MaskedTextBox.Text>
+                    <Binding Path="PersonalInfo.Snils" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:RegexValidationRule RegexPattern="^\d{3}-\d{3}-\d{3} \d{2}$" ErrorMessage="Введите в формате СНИЛС XXX-XXX-XXX XX" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </xctk:MaskedTextBox.Text>
+            </xctk:MaskedTextBox>
+            <!--<TextBox x:Name="snilsTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" MaxLength="20" Style="{StaticResource ValidatedTextBoxStyle}">
                 <TextBox.Text>
                     <Binding Path="PersonalInfo.Snils" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -52,7 +69,7 @@
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
-            </TextBox>
+            </TextBox>-->
 
             <TextBlock Text="Адрес" Grid.Row="1" Grid.Column="0" Margin="5"/>
             <TextBox x:Name="adressTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Width="200" MaxLength="100" Text="{Binding PersonalInfo.Adress, UpdateSourceTrigger=PropertyChanged}"/>
