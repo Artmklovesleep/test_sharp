@@ -25,5 +25,21 @@ namespace test_sharp
             else
                 return new ValidationResult(false, ErrorMessage);
         }
+
+        public bool Validate(string pattern, string input, int maxLength, bool checkEmpty = true)
+        {   
+            if (!checkEmpty && string.IsNullOrEmpty(input))
+                return true;
+
+            if (input == null || input.Length > maxLength)
+                return false;
+
+            if (string.IsNullOrEmpty(pattern))
+                return true;
+
+            
+
+            return Regex.IsMatch(input, pattern);
+        }
     }
 }

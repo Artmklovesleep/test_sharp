@@ -33,11 +33,11 @@ namespace test_sharp.Pages
             mainWindow = _mainWindow;
         }
 
-        private void createButtonClick(object sender, RoutedEventArgs e)
+        private void CreateButtonClick(object sender, RoutedEventArgs e)
         {
             mainWindow.OpenPage(PageType.MAIN);
         }
-        private void openButtonClick(object sender, RoutedEventArgs e)
+        private void OpenButtonClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "XML Files (*.xml)|*.xml";
@@ -47,22 +47,39 @@ namespace test_sharp.Pages
 
             if (result == true)
             {
-                string selectedFileName = openFileDialog.FileName;
+                var selectedFileName = openFileDialog.FileName;
 
                 try
                 {
                     var serializer = new XmlSerializer(typeof(Person));
-                    using (var writer = new FileStream(selectedFileName, FileMode.OpenOrCreate))
+                    using (var reader = new FileStream(selectedFileName, FileMode.Open))
                     {
-                        person = (Person)serializer.Deserialize(writer);
+                        person = (Person)serializer.Deserialize(reader);
                     }
+
+                    if (!person.ValidateName())
+                    {
+                        throw new Exception("Неверный формат имени");
+                    }
+
+                    if (!person.PersonalInfo.ValidatePersonalInfo())
+                    {
+                        throw new Exception("Неверная персональная информация");
+                    }
+
+                    if (!person.DocumentDetails.ValidateDocumentDetails())
+                    {
+                        throw new Exception("Неверная информация о документе");
+                    }
+
                     mainWindow.OpenPage(PageType.MAIN, person);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка при открытии XML");
+                    person = null;
+                    MessageBox.Show("Ошибка при открытии XML: " + ex.Message);
                 }
-                
+
             }
         }
     }

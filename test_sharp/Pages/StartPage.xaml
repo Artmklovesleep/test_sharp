@@ -10,8 +10,8 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="createButton" Content="Создать" Width="100" Height="50" Margin="0,10,0,10" Click="createButtonClick"/>
-            <Button x:Name="openButton" Content="Открыть " Width="100" Height="50" Margin="0,10,0,10" Click="openButtonClick"/>
+            <Button x:Name="createButton" Content="Создать" Width="100" Height="50" Margin="0,10,0,10" Click="CreateButtonClick"/>
+            <Button x:Name="openButton" Content="Открыть " Width="100" Height="50" Margin="0,10,0,10" Click="OpenButtonClick"/>
         </StackPanel>
     </Grid>
 </Page>

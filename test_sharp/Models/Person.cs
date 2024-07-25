@@ -1,4 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Xml.Serialization;
 
 namespace test_sharp.Models
@@ -86,6 +93,7 @@ namespace test_sharp.Models
             PersonalInfo = new PersonalInformation();
             DocumentDetails = new DetailsOfDocument();
         }
+
         public void Clear()
         {
             LastName = string.Empty;
@@ -93,6 +101,14 @@ namespace test_sharp.Models
             MiddleName = string.Empty;
             PersonalInfo.Clear();
             DocumentDetails.Clear();
+        }
+
+        public bool ValidateName()
+        {
+            var regexRule = new RegexValidationRule();
+            var RegexPattern = @"^(?:[A-Za-z]{1,20}|[а-яА-Я]{1,20})$";
+
+            return regexRule.Validate(RegexPattern, FirstName, 20) && regexRule.Validate(RegexPattern, LastName, 20) && regexRule.Validate(RegexPattern, MiddleName, 20);
         }
     }
 
@@ -157,8 +173,10 @@ namespace test_sharp.Models
                 }
             }
         }
+
         [XmlIgnore]
         public bool HasErrors { get; set; }
+
         public void Clear()
         {
             Snils = string.Empty;
@@ -169,10 +187,25 @@ namespace test_sharp.Models
 
         public bool ShouldSerialize()
         {
-            return !string.IsNullOrEmpty(Snils) &
-                   !string.IsNullOrEmpty(Adress) &
-                   !string.IsNullOrEmpty(Inn) &
+            return !string.IsNullOrEmpty(Snils) &&
+                   !string.IsNullOrEmpty(Adress) &&
+                   !string.IsNullOrEmpty(Inn) &&
                    !string.IsNullOrEmpty(Ogrnip);
+        }
+
+        public bool ValidatePersonalInfo()
+        {
+            var snilsPattern = @"^\d{3}-\d{3}-\d{3} \d{2}$";
+            var innPattern = @"^(?:[a-zA-Z]{1,15}|[а-яА-Я]{1,15})$";
+            var ogrnipPattern = "";
+            var addressPattern = "";
+
+            var regexRule = new RegexValidationRule();
+
+            return regexRule.Validate(snilsPattern, Snils, 15, false ) &&
+                   regexRule.Validate(innPattern, Inn, 15, false) &&
+                   regexRule.Validate(ogrnipPattern, Ogrnip, 15, false) &&
+                   regexRule.Validate(addressPattern, Adress, 100, false);
         }
     }
 
@@ -253,7 +286,6 @@ namespace test_sharp.Models
             }
         }
 
-
         private string _documentAuthor;
         [XmlElement("DocumentAuthor")]
         public string DocumentAuthor
@@ -271,24 +303,46 @@ namespace test_sharp.Models
 
         [XmlIgnore]
         public bool HasErrors { get; set; }
+
         public void Clear()
         {
             CodeDocument = string.Empty;
             NameDocument = string.Empty;
             SeriesDocument = string.Empty;
-            NumberDocument = string.Empty;  
+            NumberDocument = string.Empty;
             IssuanceDate = string.Empty;
             DocumentAuthor = string.Empty;
         }
+
         public bool ShouldSerialize()
         {
-            return !string.IsNullOrEmpty(CodeDocument) &
-                   !string.IsNullOrEmpty(NameDocument) &
-                   !string.IsNullOrEmpty(SeriesDocument) &
-                   !string.IsNullOrEmpty(NumberDocument) &
-                   !string.IsNullOrEmpty(IssuanceDate) &
+            return !string.IsNullOrEmpty(CodeDocument) &&
+                   !string.IsNullOrEmpty(NameDocument) &&
+                   !string.IsNullOrEmpty(SeriesDocument) &&
+                   !string.IsNullOrEmpty(NumberDocument) &&
+                   !string.IsNullOrEmpty(IssuanceDate) &&
                    !string.IsNullOrEmpty(DocumentAuthor);
         }
 
+        public bool ValidateDocumentDetails()
+        {
+            var codePattern = @"^\d{12}$";
+            var namePattern = "";
+            var seriesPattern = @"^\S{10}$"; 
+            var numberPattern = @"^\S{10}$"; 
+            var datePattern = @"^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(19|20)\d{2}$"; 
+            var authorPattern = ""; 
+
+
+            var regexRule = new RegexValidationRule();
+
+            return regexRule.Validate(codePattern, CodeDocument, 12, false) &&
+                   regexRule.Validate(namePattern, NameDocument, 100, false) &&
+                   regexRule.Validate(seriesPattern, SeriesDocument, 10, false) &&
+                   regexRule.Validate(numberPattern, NumberDocument, 10, false) &&
+                   regexRule.Validate(datePattern, IssuanceDate, 10, false) &&
+                   regexRule.Validate(authorPattern, DocumentAuthor, 50, false);
+        }
     }
 }
+
